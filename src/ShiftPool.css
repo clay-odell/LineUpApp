@@ -1,0 +1,90 @@
+.h3-instructions {
+  font-family: "Antic Slab", serif;
+  font-size: 1.25rem;
+  text-align: center;
+  margin: 0;
+}
+.instructions {
+  font-family: "Antic Slab", serif;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  margin-top: 0px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+  }
+  
+  select {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    form {
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    label, select {
+      font-size: 12px;
+    }
+  }
+
+ul {
+  list-style-type: none;
+  text-align: left;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: "Antic Slab", serif;
+}
+.shiftPool {
+  text-align: left;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove any default spacing */
+}
+
+.button-div {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Add spacing between buttons */
+}
+
+.add {
+  background-color: blue;
+  color: aliceblue;
+}
+.undo {
+  background-color: gray;
+  color: aliceblue;
+}
+.finalize {
+  background-color: green;
+  color: aliceblue;
+}

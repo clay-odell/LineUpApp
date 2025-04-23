@@ -1,84 +1,101 @@
 import { useState } from "react";
-import Table from "react-bootstrap/Table";
-import Form from "react-bootstrap/Form";
-import { shiftHours } from "./DutchData";
+import { shiftHours, positions } from "./DutchData";
+import "./App.css";
+import "./index.css";
+import "./PositionsTable.css";
+const PositionsTable = ({ shiftType, shiftPool }) => {
+  const [assignments, setAssignments] = useState({});
+  const [isFinalized, setIsFinalized] = useState(false);
 
-const PositionsTable = () => {
-  const [selectedShift, setSelectedShift] = useState("Morning");
+  const handleSelectChange = (position, time, broista) => {
+    setAssignments((prev) => ({
+      ...prev,
+      [`${position}-${time}`]: broista,
+    }));
+  };
+
+  const handleFinalize = () => {
+    setIsFinalized(true);
+  };
+
+  const handleUndoFinalize = () => {
+    setIsFinalized(false);
+  };
 
   return (
     <>
-      <Form.Group controlId="shiftType">
-        <Form.Label>Select Shift Type:</Form.Label>
-        <Form.Select
-          value={selectedShift}
-          onChange={(e) => setSelectedShift(e.target.value)}
-        >
-          {Object.keys(shiftHours).map((shift) => (
-            <option key={shift} value={shift}>
-              {shift}
-            </option>
-          ))}
-        </Form.Select>
-      </Form.Group>
+      <h2>Positions Table</h2>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Position</th>
-            {shiftHours[selectedShift].map((hour, index) => (
-              <th key={index}>{hour}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Drive Shots</td>
-          </tr>
-          <tr>
-            <td>Line Buster 1</td>
-          </tr>
-          <tr>
-            <td>Drive Milk</td>
-          </tr>
-          <tr>
-            <td>Walkup Shots</td>
-          </tr>
-          <tr>
-            <td>Window</td>
-          </tr>
-          <tr>
-            <td>Walkup Milk</td>
-          </tr>
-          <tr>
-            <td>Line Buster 2</td>
-          </tr>
-          <tr>
-            <td>Pit 1</td>
-          </tr>
-          <tr>
-            <td>Side Bar Shots</td>
-          </tr>
-          <tr>
-            <td>Line Buster 3</td>
-          </tr>
-          <tr>
-            <td>Side Bar Milk</td>
-          </tr>
-          <tr>
-            <td>Pit 2</td>
-          </tr>
-          <tr>
-            <td>Drink Runner</td>
-          </tr>
-          <tr>
-            <td>Flow Master</td>
-          </tr>
-          <tr>
-            <td>Walkup Window</td>
-          </tr>
-        </tbody>
-      </Table>
+      {!isFinalized && (
+        <>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Positions</th>
+                {shiftHours[shiftType]?.map((time, index) => (
+                  <th key={index}>{time}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {positions.map((position, index) => (
+                <tr key={index}>
+                  <th scope="row">{position}</th>
+                  {shiftHours[shiftType]?.map((time, idx) => (
+                    <td key={idx}>
+                      <select
+                        value={assignments[`${position}-${time}`] || ""}
+                        onChange={(e) =>
+                          handleSelectChange(position, time, e.target.value)
+                        }
+                      >
+                        <option value="">Select Broista</option>
+                        {shiftPool.map((broista, index) => (
+                          <option key={index} value={broista.name}>
+                            {broista.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <button onClick={handleFinalize}>Finalize Table</button>
+        </>
+      )}
+
+      {isFinalized && (
+        <>
+          <h2>Finalized Positions</h2>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Positions</th>
+                {shiftHours[shiftType]?.map((time, index) => (
+                  <th key={index}>{time}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {positions.map((position, index) => (
+                <tr key={index}>
+                  <th scope="row">{position}</th>
+                  {shiftHours[shiftType]?.map((time, idx) => (
+                    <td key={idx}>
+                      {assignments[`${position}-${time}`] || "--"}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <button onClick={handleUndoFinalize}>Undo Finalize</button>
+        </>
+      )}
     </>
   );
 };
