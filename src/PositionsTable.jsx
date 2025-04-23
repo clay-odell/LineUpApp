@@ -28,6 +28,7 @@ const PositionsTable = ({ shiftType, shiftPool }) => {
 
       {!isFinalized && (
         <>
+        <p>If you have trouble seeing the names on your unfinalized table, turn your phone or device sideways.</p>
           <table border="1">
             <thead>
               <tr>
