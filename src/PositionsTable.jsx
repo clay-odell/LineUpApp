@@ -25,7 +25,7 @@ const PositionsTable = ({ shiftType, shiftPool }) => {
   return (
     <>
       <h2>Positions Table</h2>
-
+      <p>Select broistas from the drop down for each position in each given hour.</p>
       {!isFinalized && (
         <>
         <p>If you have trouble seeing the names on your unfinalized table, turn your phone or device sideways.</p>
