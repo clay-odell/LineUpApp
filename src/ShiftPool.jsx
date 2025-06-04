@@ -179,6 +179,7 @@ const ShiftPool = () => {
             </select>
           </>
         )}
+        <div className="container">
       <div className="button-div">
         <button
           type="submit"
@@ -207,6 +208,7 @@ const ShiftPool = () => {
         <button className="undo" onClick={handleUndoFinalize}>
           Undo Finalize Shift Pool
         </button>
+        </div>
         </div>
       </form>
 
